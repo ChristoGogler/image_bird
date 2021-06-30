@@ -1,0 +1,29 @@
+p {
+    color: white;
+}
+
+.board {
+    display: flex;
+}
+
+.photoframe {
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    margin: 20px;
+    background-color: darkcyan;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photoframe img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+.photoframe p {
+    display: block;
+}
