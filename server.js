@@ -1,5 +1,6 @@
 const express = require("express");
 const { getImages } = require("./db");
+const path = require("path");
 const app = express();
 const PORT = 9090;
 
