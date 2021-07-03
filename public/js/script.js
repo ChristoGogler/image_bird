@@ -1,11 +1,45 @@
 (function () {
+    const form = document.querySelector("#uploadForm");
+    console.log("(script.js) form: ", form);
     const vue = new Vue({
         el: "#main",
         data: {
-            title: "The Image Board",
+            heading: "The Image Board",
             images: [],
+            title: "",
+            description: "",
+            username: "",
+            picture: null,
         },
-        methods: {},
+        methods: {
+            uploadFile: function (event) {
+                event.preventDefault();
+                console.log(
+                    "(Upload Form): Button clicked!",
+                    this.title,
+                    this.description,
+                    this.username,
+                    this.url
+                );
+                const formData = new FormData();
+                formData.append("title", this.title);
+                formData.append("description", this.description);
+                formData.append("username", this.username);
+                formData.append("picture", this.picture);
+                console.log("(Upload Form) formData: ", formData);
+                axios.post("/api/upload", formData).then((latestImage) => {
+                    console.log("(latestImage): ", latestImage.data[0]);
+                    this.images.unshift(latestImage.data[0]);
+                });
+            },
+            insertFile: function (event) {
+                console.log(
+                    "...(file input) chosen file: ",
+                    event.target.files[0]
+                );
+                this.picture = event.target.files[0];
+            },
+        },
 
         created: () => console.log("vue created!"),
 
