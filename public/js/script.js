@@ -1,7 +1,8 @@
 (function () {
     const form = document.querySelector("#uploadForm");
     console.log("(script.js) form: ", form);
-    const vue = new Vue({
+
+    const vInstance = new Vue({
         el: "#main",
         data: {
             heading: "The Image Board",
@@ -49,6 +50,19 @@
                 console.log("(mounted) :", images.data);
                 this.images = images.data;
             });
+        },
+    });
+
+    Vue.component("single-picture", {
+        props: ["id", "url", "title", "description", "username"],
+        // template: "#onepic",
+        template:
+            '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
+        methods: {
+            onClick: function () {
+                console.log("[single-picture:onClick]", this.id);
+                this.$emit("single-pic-click", this.id);
+            },
         },
     });
 })();

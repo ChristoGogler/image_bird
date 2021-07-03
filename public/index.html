@@ -54,10 +54,14 @@
                 </form>
             </section>
             <section id="board" class="board">
-                <div v-for="image in images" class="photoframe">
-                    <img :src="image.url" :alt="image.title" />
-                    <p>{{image.title}}</p>
-                </div>
+                <single-picture
+                    v-for="image in images"
+                    v-bind:key="image.id"
+                    v-bind:url="image.url"
+                    v-bind:title="image.title"
+                    v-bind:description="image.description"
+                    v-bind:username="image.username"
+                ></single-picture>
             </section>
         </main>
         <footer></footer>
@@ -65,5 +69,13 @@
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="js/script.js"></script>
+        <!-- single-picture component -->
+
+        <!-- <script id="single-picture" type="text/x-template">
+            <div v-for="image in images" class="photoframe">
+                <img v-bind:src="url" v-bind:alt="title" />
+                <p>{{title}}</p>
+            </div>
+        </script> -->
     </body>
 </html>
