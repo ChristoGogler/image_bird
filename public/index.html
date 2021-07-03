@@ -7,13 +7,58 @@
     <body>
         <header></header>
         <main id="main">
-            <h1>{{title}}</h1>
-            <div class="board">
+            <h1>{{heading}}</h1>
+            <section id="uploadForm">
+                <form
+                    id="uploadForm"
+                    enctype="multipart/form-data"
+                    action="/api/upload"
+                    method="POST"
+                >
+                    <input
+                        class="textfield"
+                        id="title"
+                        type="text"
+                        name="title"
+                        placeholder="title"
+                        v-model="title"
+                    />
+                    <input
+                        class="textfield"
+                        id="description"
+                        type="text"
+                        name="description"
+                        placeholder="description"
+                        v-model="description"
+                    />
+                    <input
+                        class="textfield"
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                        v-model="username"
+                    />
+                    <input
+                        class="textfield"
+                        id="picture"
+                        type="file"
+                        accept="image/*"
+                        name="picture"
+                        v-on:change="insertFile"
+                        required
+                    />
+                    <button v-on:click="uploadFile" type="submit">
+                        Upload
+                    </button>
+                </form>
+            </section>
+            <section id="board" class="board">
                 <div v-for="image in images" class="photoframe">
                     <img :src="image.url" :alt="image.title" />
                     <p>{{image.title}}</p>
                 </div>
-            </div>
+            </section>
         </main>
         <footer></footer>
 
