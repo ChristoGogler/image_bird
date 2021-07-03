@@ -5,13 +5,14 @@ p {
 .board {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .photoframe {
     width: 300px;
-    height: 300px;
-    padding: 20px;
-    margin: 20px;
+    aspect-ratio: 5/6;
+    padding: 5px;
+    margin: 10px;
     background-color: darkcyan;
     display: flex;
     flex-direction: column;
@@ -20,11 +21,26 @@ p {
 }
 
 .photoframe img {
-    width: 250px;
-    height: 250px;
+    width: 95%;
     object-fit: cover;
     display: block;
+    aspect-ratio: 1 / 1;
 }
 .photoframe p {
     display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .photoframe {
+        width: 90%;
+        background-color: pink;
+    }
+
+    .photoframe img {
+    }
+    .photoframe p {
+    }
+}
+
+@media screen and (max-width: 480px) {
 }
