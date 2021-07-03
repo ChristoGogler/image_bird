@@ -4,6 +4,7 @@ const pwd = process.env.pwd || require("./secrets.json").pwd;
 let postgresDb;
 const exporting = {
     getImages,
+    saveImage,
 };
 
 module.exports = exporting;
@@ -24,8 +25,22 @@ const setupDb = () => {
 setupDb();
 function getImages() {
     console.log("...(getImages)");
-    return postgresDb.query("SELECT * FROM images").then((result) => {
-        console.log("(query results)", result.rows);
-        return result.rows;
-    });
+    return postgresDb
+        .query("SELECT * FROM images ORDER BY id DESC")
+        .then((result) => {
+            console.log("(query results)", result.rows);
+            return result.rows;
+        });
+}
+
+function saveImage({ title, description, username, url }) {
+    return postgresDb
+        .query(
+            "INSERT INTO images (title, description, username, url) VALUES ($1, $2, $3, $4) RETURNING *",
+            [title, description, username, url]
+        )
+        .then((result) => {
+            console.log("...(saveImage) query result: ", result.rows);
+            return result.rows;
+        });
 }
