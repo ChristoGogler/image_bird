@@ -5,8 +5,9 @@ const path = require("path");
 console.log("multer: ", multer.diskStorage);
 
 const storage = multer.diskStorage({
-    destination: path.resolve(__dirname, "uploads"),
-    filename: function (req, file, callback) {
+    destination: path.join(__dirname, "uploads"),
+
+    filename: function (request, file, callback) {
         uidSafe(24).then(function (uid) {
             callback(null, uid + path.extname(file.originalname));
         });

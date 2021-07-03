@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, "uploads")))
     })
 
     .post("/api/upload", uploader.single("picture"), (request, response) => {
-        console.log(request.body, request.file);
+        console.log("request.body, request.file", request.body, request.file);
         if (request.file) {
             response.json({ ...request.file, ...request.body, success: true });
             return;
