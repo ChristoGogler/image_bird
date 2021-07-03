@@ -4,6 +4,7 @@ p {
 
 .board {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .photoframe {
