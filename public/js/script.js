@@ -6,7 +6,7 @@
     const mainVueInstance = new Vue({
         el: "#main",
         data: {
-            heading: "The Image Brrrd",
+            heading: "The Image B🦅rd",
             images: [],
             title: "",
             description: "",
