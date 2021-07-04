@@ -45,7 +45,7 @@
             openSinglePic: function (id) {
                 // console.log("...(main vue imageclick) id: ", id);
                 console.log(
-                    "...(main vue imageclick) currentImageId: ",
+                    "...(main vue openSinglePic) currentImageId: ",
                     this.currentImageId
                 );
                 this.currentImageId = id;
@@ -55,7 +55,8 @@
                 );
             },
             closeSinglePic: function () {
-                this.currentImageID = null;
+                console.log("...(main vue closeSinglePic)");
+                this.currentImageId = null;
             },
             changeHeading: function () {
                 console.log("...(changeHeading)");
