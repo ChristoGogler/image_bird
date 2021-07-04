@@ -13,6 +13,7 @@
             username: "",
             picture: null,
             currentImageId: null,
+            lightboxVisible: false,
         },
         methods: {
             uploadFile: function (event) {
@@ -49,6 +50,7 @@
                     this.currentImageId
                 );
                 this.currentImageId = id;
+                this.lightboxVisible = true;
                 console.log(
                     "...(main vue imageclick) currentImageId: ",
                     this.currentImageId
@@ -57,6 +59,7 @@
             closeSinglePic: function () {
                 console.log("...(main vue closeSinglePic)");
                 this.currentImageId = null;
+                this.lightboxVisible = false;
             },
             changeHeading: function () {
                 console.log("...(changeHeading)");
@@ -102,13 +105,12 @@
 
     //vue component for lightbox
     Vue.component("light-box", {
-        props: ["id"],
+        props: ["id", "image"],
         template: "#lightBox",
         data: {
             function() {
                 return {
                     image: {},
-                    visible: false,
                 };
             },
         },

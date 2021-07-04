@@ -65,7 +65,7 @@
                 ></single-picture>
             </section>
             <light-box
-                v-if="currentImageId"
+                v-if="lightboxVisible"
                 :id="currentImageId"
                 @button-clicked="closeSinglePic()"
             ></light-box>
@@ -84,9 +84,13 @@
             </div>
         </script>
         <script id="lightBox" type="text/x-template">
-            <div class="backdrop"">
-                <p> hello lightbox! </p>
-                <button id="closeButton" @click="emitClick()">Close</button>
+            <div class="backdrop">
+                <div class="imageWrapper">
+                    <h1>{{image.title}}</h1>
+                    <img class="lightboxImg" :src="image.url" :alt="image.title" />
+                    <p>{{id}} {{image.url}}</p>
+                    <button id="closeButton" @click="emitClick()">Close</button>
+                </div>
             </div>
         </script>
     </body>
