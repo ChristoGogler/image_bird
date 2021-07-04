@@ -12,6 +12,7 @@
             description: "",
             username: "",
             picture: null,
+            currentImageId: null,
         },
         methods: {
             uploadFile: function (event) {
@@ -42,7 +43,19 @@
                 this.picture = event.target.files[0];
             },
             openSinglePic: function (id) {
-                console.log("...(main vue imageclick) id: ", id);
+                // console.log("...(main vue imageclick) id: ", id);
+                console.log(
+                    "...(main vue imageclick) currentImageId: ",
+                    this.currentImageId
+                );
+                this.currentImageId = id;
+                console.log(
+                    "...(main vue imageclick) currentImageId: ",
+                    this.currentImageId
+                );
+            },
+            closeSinglePic: function () {
+                this.currentImageID = null;
             },
             changeHeading: function () {
                 console.log("...(changeHeading)");
@@ -64,8 +77,6 @@
     Vue.component("single-picture", {
         props: ["id", "url", "title", "description", "username"],
         template: "#singlePicture",
-        // template:
-        //     '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
         data: {
             function() {
                 return {
@@ -79,23 +90,46 @@
         },
         methods: {
             emitClick: function (id) {
-                console.log("...(component vue emitClick) id: ", id);
+                console.log(
+                    "...(single picture component - emitClick) id: ",
+                    id
+                );
                 this.$emit("image-clicked", id);
             },
         },
     });
 
-    // //vue component for lightbox
-    // Vue.component("light-box", {
-    //     props: ["id", "url", "title", "description", "username"],
-    //     template: "#lightBox",
-    //     // template:
-    //     //     '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
-    //     methods: {
-    //         onClick: function () {
-    //             console.log("[single-picture:onClick]", this.id);
-    //             this.$emit("single-pic-click", this.id);
-    //         },
-    //     },
-    // });
+    //vue component for lightbox
+    Vue.component("light-box", {
+        props: ["id"],
+        template: "#lightBox",
+        data: {
+            function() {
+                return {
+                    image: {},
+                    visible: false,
+                };
+            },
+        },
+        methods: {
+            show() {
+                this.visible = true;
+            },
+            hide() {
+                this.visible = false;
+                this.currentImage = null;
+            },
+            emitClick() {
+                console.log("...(lightbox component - emitClick)");
+                this.$emit("button-clicked");
+            },
+        },
+        mounted: function () {
+            console.log("lightbox mounted!", this.id);
+            axios.get("/api/images/" + this.id).then((response) => {
+                console.log("response.data", response.data);
+                this.image = response.data;
+            });
+        },
+    });
 })();

@@ -64,6 +64,11 @@
                     @image-clicked="openSinglePic(image.id)"
                 ></single-picture>
             </section>
+            <light-box
+                v-if="currentImageId"
+                :id="currentImageId"
+                @button-clicked="closeSinglePic()"
+            ></light-box>
         </main>
         <footer></footer>
 
@@ -76,6 +81,12 @@
             <div class="photoframe" @click="emitClick(id)">
                 <img v-bind:src="url" v-bind:alt="title" />
                 <p>{{title}}</p>
+            </div>
+        </script>
+        <script id="lightBox" type="text/x-template">
+            <div class="backdrop"">
+                <p> hello lightbox! </p>
+                <button id="closeButton" @click="emitClick()">Close</button>
             </div>
         </script>
     </body>

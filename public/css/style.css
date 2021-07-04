@@ -30,6 +30,14 @@ p {
     display: block;
 }
 
+.backdrop {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: pink;
+}
+
 @media screen and (max-width: 768px) {
     .photoframe {
         width: 90%;
