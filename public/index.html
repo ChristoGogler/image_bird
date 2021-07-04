@@ -7,7 +7,7 @@
     <body>
         <header></header>
         <main id="main">
-            <h1>{{heading}}</h1>
+            <h1 v-on:click="changeHeading">{{heading}}</h1>
             <section id="uploadForm">
                 <form
                     id="uploadForm"
@@ -56,11 +56,12 @@
             <section id="board" class="board">
                 <single-picture
                     v-for="image in images"
-                    v-bind:key="image.id"
+                    v-bind:id="image.id"
                     v-bind:url="image.url"
                     v-bind:title="image.title"
                     v-bind:description="image.description"
                     v-bind:username="image.username"
+                    @image-clicked="openSinglePic(image.id)"
                 ></single-picture>
             </section>
         </main>
@@ -71,11 +72,11 @@
         <script src="js/script.js"></script>
         <!-- single-picture component -->
 
-        <!-- <script id="single-picture" type="text/x-template">
-            <div v-for="image in images" class="photoframe">
+        <script id="singlePicture" type="text/x-template">
+            <div class="photoframe" @click="emitClick(id)">
                 <img v-bind:src="url" v-bind:alt="title" />
                 <p>{{title}}</p>
             </div>
-        </script> -->
+        </script>
     </body>
 </html>

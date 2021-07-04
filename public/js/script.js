@@ -2,10 +2,11 @@
     const form = document.querySelector("#uploadForm");
     console.log("(script.js) form: ", form);
 
-    const vInstance = new Vue({
+    //main vue instance
+    const mainVueInstance = new Vue({
         el: "#main",
         data: {
-            heading: "The Image Board",
+            heading: "The Image Brrrd",
             images: [],
             title: "",
             description: "",
@@ -40,6 +41,12 @@
                 );
                 this.picture = event.target.files[0];
             },
+            openSinglePic: function (id) {
+                console.log("...(main vue imageclick) id: ", id);
+            },
+            changeHeading: function () {
+                console.log("...(changeHeading)");
+            },
         },
 
         created: () => console.log("vue created!"),
@@ -53,16 +60,42 @@
         },
     });
 
+    //vue component for single pictures
     Vue.component("single-picture", {
         props: ["id", "url", "title", "description", "username"],
-        // template: "#onepic",
-        template:
-            '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
+        template: "#singlePicture",
+        // template:
+        //     '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
+        data: {
+            function() {
+                return {
+                    id: this.id,
+                    url: this.url,
+                    title: this.title,
+                    description: this.description,
+                    username: this.username,
+                };
+            },
+        },
         methods: {
-            onClick: function () {
-                console.log("[single-picture:onClick]", this.id);
-                this.$emit("single-pic-click", this.id);
+            emitClick: function (id) {
+                console.log("...(component vue emitClick) id: ", id);
+                this.$emit("image-clicked", id);
             },
         },
     });
+
+    // //vue component for lightbox
+    // Vue.component("light-box", {
+    //     props: ["id", "url", "title", "description", "username"],
+    //     template: "#lightBox",
+    //     // template:
+    //     //     '<div class="photoframe"><img v-bind:src="url" v-bind:alt="title" /><p>{{title}}</p></div>',
+    //     methods: {
+    //         onClick: function () {
+    //             console.log("[single-picture:onClick]", this.id);
+    //             this.$emit("single-pic-click", this.id);
+    //         },
+    //     },
+    // });
 })();
