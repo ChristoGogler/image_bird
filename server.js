@@ -1,5 +1,5 @@
 const express = require("express");
-const { getImages, saveImage } = require("./db");
+const { getImages, getImageById, saveImage } = require("./db");
 const path = require("path");
 const { uploader } = require("./file_upload");
 const { uploadFiles3 } = require("./s3");
@@ -28,6 +28,19 @@ app.use(express.static(path.join(__dirname, "public")))
     .get("/", (request, response) => {
         console.log("(GET /)");
         console.log("(Request): ", request);
+    })
+    .get("/api/images/:imageid", (request, response) => {
+        console.log("(GET /api/images/:imageid)");
+        const { imageid } = request.params;
+        console.log("(imageid): ", imageid);
+        getImageById(imageid)
+            .then((image) => {
+                console.log("...(getImageById) result: ", image[0]);
+                response.json(image[0]);
+            })
+            .catch((error) => {
+                console.log("Error getting image from db: ", error);
+            });
     })
 
     .post(
