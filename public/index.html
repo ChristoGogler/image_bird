@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="css/style.css" />
-        <title></title>
+        <title>The Image B🪶rd</title>
     </head>
     <body>
         <header></header>
         <main id="main">
-            <h1 v-on:click="changeHeading">{{heading}}</h1>
+            <img
+                class="logo"
+                src="./img/logo.png"
+                alt="LOGO - The Image B🪶rd"
+            />
             <section id="uploadForm">
                 <form
                     id="uploadForm"
@@ -48,8 +58,12 @@
                         v-on:change="insertFile"
                         required
                     />
-                    <button v-on:click="uploadFile" type="submit">
-                        Upload
+                    <button
+                        class="button submitButton"
+                        v-on:click="uploadFile"
+                        type="submit"
+                    >
+                        <img src="" alt="" /> Upload
                     </button>
                 </form>
             </section>
@@ -85,12 +99,14 @@
         </script>
         <script id="lightBox" type="text/x-template">
             <div class="backdrop">
-                <div class="imageWrapper">
-                    <h1>{{image.title}}</h1>
+                <article class="imageWrapper">
+                    <h1 class="heading">{{image.title}}</h1>
                     <img class="lightboxImg" :src="image.url" :alt="image.title" />
-                    <p>{{id}} {{image.url}}</p>
-                    <button id="closeButton" @click="emitClick()">Close</button>
-                </div>
+                    <aside class="imgDetails">
+                        <p>{{image.description}}</p>
+                        <button class="button closeButton" @click="emitClick()">×</button>
+                    </aside>
+                </article>
             </div>
         </script>
     </body>

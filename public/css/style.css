@@ -1,23 +1,49 @@
+/* general setup */
+* {
+    font-family: "Rubik", sans-serif;
+    font-size: 16pt;
+}
+::selection {
+    background-color: #c4e7ea;
+    color: #ff9293;
+}
 p {
     color: white;
 }
 
+button {
+    background: none;
+    border: none;
+}
+/* general setup */
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .board {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-
+.logo {
+    width: 1000px;
+}
 .photoframe {
     width: 300px;
     aspect-ratio: 5/6;
     padding: 5px;
     margin: 10px;
-    background-color: darkcyan;
+    background-color: #c4e7ea;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.photoframe:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #4d4c4d;
 }
 
 .photoframe img {
@@ -29,19 +55,58 @@ p {
 .photoframe p {
     display: block;
 }
-
+/* lightbox */
 .backdrop {
     position: fixed;
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background-color: pink;
+    background-color: rgba(90, 70, 70, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.heading {
+    font-size: 1.5rem;
+    color: white;
+    padding: 5px 0;
+    border: 3px solid currentColor;
+}
+.imageWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 90vh;
+    text-align: center;
+    padding: 0 20px 10px;
+    background: #ff9293;
+    box-shadow: 0px 0px 10px #4d4c4d;
+}
+.lightboxImg {
+    max-height: 60vh;
+    object-fit: contain; /* padding-bottom: 10px; */
+    /* border-bottom: 3px solid white; */
+}
+
+.imgDetails {
+    /* border: 3px solid white; */
+    padding: 0 10px;
+}
+.closeButton {
+    color: white;
+    font-size: 2rem;
+}
+.closeButton:hover {
+    cursor: pointer;
+}
+
+/* end lightbox */
+
+/* media queries: middle/small screens */
 @media screen and (max-width: 768px) {
     .photoframe {
         width: 90%;
-        background-color: pink;
     }
 
     .photoframe img {
@@ -52,3 +117,4 @@ p {
 
 @media screen and (max-width: 480px) {
 }
+/* end media queries */
