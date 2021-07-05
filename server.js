@@ -38,9 +38,9 @@ app.use(express.static(path.join(__dirname, "public")))
     //GET /api/images/:imageid
     .get("/api/images/:imageid", (request, response) => {
         console.log("(GET /api/images/:imageid)");
-        const { imageid } = request.params;
-        console.log("(imageid): ", imageid);
-        getImageById(imageid)
+        const { imageid: imageId } = request.params;
+        console.log("(imageid): ", imageId);
+        getImageById(imageId)
             .then((image) => {
                 console.log("...(getImageById) result: ", image[0]);
                 response.json(image[0]);
@@ -52,12 +52,26 @@ app.use(express.static(path.join(__dirname, "public")))
     //GET /api/images/:imageid/comments
     .get("/api/images/:imageid/comments", (request, response) => {
         console.log("(GET /api/images/:imageid/comments)");
-        const { imageid } = request.params;
-        console.log("(imageid): ", imageid);
-        getCommentsByImgId(imageid)
+        const { imageid: imageId } = request.params;
+        console.log("(imageid): ", imageId);
+        getCommentsByImgId(imageId)
             .then((comments) => {
                 console.log("...(getCommentsByImgId) result: ", comments);
                 response.json(comments);
+            })
+            .catch((error) => {
+                console.log("Error getting image from db: ", error);
+            });
+    })
+    //POST /api/images/:imageid/comments
+    .post("/api/images/:imageid/comments", (request, response) => {
+        console.log("(POST /api/images/:imageid/comments)");
+        const { imageid: imageId } = request.params;
+        console.log("Request Body: ", request.body);
+        saveComment({ imageId, ...request.body })
+            .then((comment) => {
+                console.log("...(saveComment) result: ", comment);
+                response.json(comment);
             })
             .catch((error) => {
                 console.log("Error getting image from db: ", error);

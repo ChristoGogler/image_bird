@@ -76,15 +76,6 @@
     Vue.component("single-picture", {
         props: ["id", "url", "title", "description", "username"],
         template: "#singlePicture",
-        // data: function () {
-        //     return {
-        //         id: null,
-        //         url: "",
-        //         title: "",
-        //         description: "",
-        //         username: "",
-        //     };
-        // },
         methods: {
             emitClick: function (id) {
                 console.log(
@@ -148,7 +139,11 @@
             submitComment: function () {
                 console.log("submitComment!", this.image_id);
                 axios
-                    .post(`/api/images/${this.image_id}/comments`)
+                    .post(`/api/images/${this.image_id}/comments`, {
+                        imageId: this.image_id,
+                        username: this.username,
+                        comment: this.comment,
+                    })
                     .then((response) => {
                         this.latestComment = response.data;
                         console.log("latestComment:", this.latestComment);

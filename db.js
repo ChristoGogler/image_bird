@@ -59,11 +59,17 @@ function saveImage({ title, description, username, url }) {
         });
 }
 
-function saveComment({ username, comment, img_id }) {
+function saveComment({ imageId, username, comment }) {
+    console.log(
+        "...(saveComment) username, comment, img_id: ",
+        username,
+        comment,
+        imageId
+    );
     return postgresDb
         .query(
             "INSERT INTO comments (username, comment, img_id) VALUES ($1, $2, $3) RETURNING *",
-            [username, comment, img_id]
+            [username, comment, imageId]
         )
         .then((result) => {
             console.log("...(saveComment) query result: ", result.rows[0]);
