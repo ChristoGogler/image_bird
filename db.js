@@ -3,8 +3,10 @@ const user = process.env.user || require("./secrets.json").user;
 const pwd = process.env.pwd || require("./secrets.json").pwd;
 let postgresDb;
 const exporting = {
+    getCommentsByImgId,
     getImages,
     getImageById,
+    saveComment,
     saveImage,
 };
 
@@ -24,6 +26,17 @@ const setupDb = () => {
     console.log(`Connecting to ${database}...!`);
 };
 setupDb();
+
+function getCommentsByImgId(imgId) {
+    console.log("...(getCommentsByImgId)");
+    return postgresDb
+        .query("SELECT * FROM comments WHERE img_id = $1", [imgId])
+        .then((result) => {
+            console.log("(query results)", result.rows);
+            return result.rows;
+        });
+}
+
 function getImages() {
     console.log("...(getImages)");
     return postgresDb
@@ -43,6 +56,18 @@ function saveImage({ title, description, username, url }) {
         .then((result) => {
             console.log("...(saveImage) query result: ", result.rows);
             return result.rows;
+        });
+}
+
+function saveComment({ username, comment, img_id }) {
+    return postgresDb
+        .query(
+            "INSERT INTO comments (username, comment, img_id) VALUES ($1, $2, $3) RETURNING *",
+            [username, comment, img_id]
+        )
+        .then((result) => {
+            console.log("...(saveComment) query result: ", result.rows[0]);
+            return result.rows[0];
         });
 }
 
