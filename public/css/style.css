@@ -1,7 +1,9 @@
 /* general setup */
 * {
+    margin: 0;
     font-family: "Rubik", sans-serif;
     font-size: 16pt;
+    box-sizing: border-box;
 }
 ::selection {
     background-color: #c4e7ea;
@@ -15,7 +17,40 @@ button {
     background: none;
     border: none;
 }
-/* general setup */
+/* end general setup */
+
+/* uploadForm */
+#uploadForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #c4e7ea;
+}
+.textfield {
+    padding: 5px 10px;
+    margin-right: 5px;
+    max-width: 200px;
+    border: none;
+}
+
+.submitButton {
+    background-color: #ff9293;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.submitButton:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #4d4c4d;
+}
+
+.submitButton img {
+    width: 50px;
+}
+/* end uploadForm */
+
 #main {
     display: flex;
     flex-direction: column;
@@ -25,6 +60,7 @@ button {
 .board {
     display: flex;
     flex-wrap: wrap;
+
     justify-content: center;
 }
 .logo {
@@ -35,7 +71,8 @@ button {
     aspect-ratio: 5/6;
     padding: 5px;
     margin: 10px;
-    background-color: #c4e7ea;
+    /* background-color: #c4e7ea; */
+    border: 3px solid #ff9293;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,17 +80,19 @@ button {
 }
 .photoframe:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 10px #4d4c4d;
+    box-shadow: 0px 0px 10px #ff9293;
 }
 
-.photoframe img {
+.thumbnail {
     width: 95%;
+    margin-bottom: 10px;
     object-fit: cover;
     display: block;
     aspect-ratio: 1 / 1;
 }
 .photoframe p {
     display: block;
+    color: #4d4c4d;
 }
 /* lightbox */
 .backdrop {
@@ -69,7 +108,7 @@ button {
 
 .heading {
     font-size: 1.5rem;
-    color: white;
+    color: #ff9293;
     padding: 5px 0;
     border: 3px solid currentColor;
 }
@@ -80,7 +119,7 @@ button {
     height: 90vh;
     text-align: center;
     padding: 0 20px 10px;
-    background: #ff9293;
+    background: white;
     box-shadow: 0px 0px 10px #4d4c4d;
 }
 .lightboxImg {
@@ -93,8 +132,11 @@ button {
     /* border: 3px solid white; */
     padding: 0 10px;
 }
+.imgDetails p {
+    color: #4d4c4d;
+}
 .closeButton {
-    color: white;
+    color: #ff9293;
     font-size: 2rem;
 }
 .closeButton:hover {
@@ -103,10 +145,24 @@ button {
 
 /* end lightbox */
 
+/* comments */
+
+.listOfComments {
+    list-style: none;
+}
+.singleComment p {
+    color: #4d4c4d;
+}
+
+.noComments p {
+    color: #4d4c4d;
+}
+/* end comments */
+
 /* media queries: middle/small screens */
 @media screen and (max-width: 768px) {
     .photoframe {
-        width: 90%;
+        width: 45%;
     }
 
     .photoframe img {
@@ -115,6 +171,9 @@ button {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 580px) {
+    .photoframe {
+        width: 90%;
+    }
 }
 /* end media queries */
