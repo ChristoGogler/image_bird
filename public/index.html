@@ -79,6 +79,7 @@
                     @image-clicked="openSinglePic(image.id)"
                 ></single-picture>
             </section>
+            <button @click="moreButtonClick()">More</button>
             <light-box
                 v-if="lightboxVisible"
                 :id="currentImageId"

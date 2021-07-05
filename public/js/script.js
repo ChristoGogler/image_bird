@@ -1,6 +1,6 @@
-const { response } = require("express");
-
 (function () {
+    const IMAGES_TO_SHOW = 12;
+
     const form = document.querySelector("#uploadForm");
     console.log("(script.js) form: ", form);
 
@@ -16,23 +16,18 @@ const { response } = require("express");
             picture: null,
             currentImageId: null,
             lightboxVisible: false,
+            last_id: null,
         },
         methods: {
             uploadFile: function (event) {
                 event.preventDefault();
-                console.log(
-                    "(Upload Form): Button clicked!",
-                    this.title,
-                    this.description,
-                    this.username,
-                    this.url
-                );
+                console.log("(UploadFile): Button clicked!");
                 const formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
                 formData.append("username", this.username);
                 formData.append("picture", this.picture);
-                console.log("(Upload Form) formData: ", formData);
+                // console.log("(Upload Form) formData: ", formData);
                 axios
                     .post("/api/upload", formData)
                     .then((latestImage) => {
@@ -49,7 +44,7 @@ const { response } = require("express");
             },
             insertFile: function (event) {
                 console.log(
-                    "...(file input) chosen file: ",
+                    "...(insertFile) chosen file: ",
                     event.target.files[0]
                 );
                 this.picture = event.target.files[0];
@@ -70,15 +65,41 @@ const { response } = require("express");
             changeHeading: function () {
                 console.log("...(changeHeading)");
             },
+            moreButtonClick: function () {
+                console.log("moreButtonClick");
+                const params = {
+                    last_id: this.lastImageID,
+                    limit: IMAGES_TO_SHOW,
+                };
+                console.log("PARAMS: ", params);
+
+                axios.get("/api/images.json", { params }).then((images) => {
+                    console.log("(mounted) :", images.data);
+                    this.images = [...this.images, ...images.data];
+                    this.lastImageID = images.data[images.data.length - 1].id;
+                    console.log("lastImageId: ", this.lastImageID);
+                });
+            },
         },
 
         created: () => console.log("vue created!"),
 
         mounted: function () {
             console.log("vue mounted!");
-            axios.get("/api/images.json").then((images) => {
-                console.log("(mounted) :", images.data);
+            const params = {
+                last_id: this.lastImageID,
+                limit: IMAGES_TO_SHOW,
+            };
+            console.log("PARAMS: ", params);
+            axios.get("/api/images.json", { params }).then((images) => {
+                console.log(
+                    "(mounted) :",
+                    images.data,
+                    images.data[images.data.length - 1].id
+                );
                 this.images = images.data;
+                this.lastImageID = images.data[images.data.length - 1].id;
+                console.log("lastImageId: ", this.lastImageID);
             });
         },
     });
@@ -177,3 +198,9 @@ const { response } = require("express");
         },
     });
 })();
+function getMoreImages(params) {
+    axios.get("/api/images.json", { params }).then((images) => {
+        console.log("(mounted) :", images.data);
+        this.images = images.data;
+    });
+}

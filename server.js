@@ -10,7 +10,7 @@ const path = require("path");
 const { uploader } = require("./file_upload");
 const { uploadFiles3 } = require("./s3");
 const app = express();
-const PORT = 9090;
+const PORT = 8080;
 
 app.use(express.static(path.join(__dirname, "public")))
     .use(express.static(path.join(__dirname, "uploads")))
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, "public")))
     //GET /api/images.json
     .get("/api/images.json", (request, response) => {
         console.log("(GET /api/images.json)");
-        getImages()
+        getImages(request.query)
             .then((images) => {
                 response.json(images);
             })

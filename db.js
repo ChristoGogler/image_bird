@@ -37,14 +37,26 @@ function getCommentsByImgId(imgId) {
         });
 }
 
-function getImages() {
+function getImages({ last_id, limit }) {
     console.log("...(getImages)");
-    return postgresDb
-        .query("SELECT * FROM images ORDER BY id DESC")
-        .then((result) => {
-            console.log("(query results)", result.rows);
-            return result.rows;
-        });
+    if (last_id) {
+        return postgresDb
+            .query(
+                "SELECT * FROM images WHERE id < $1 ORDER BY id DESC LIMIT $2",
+                [last_id, limit]
+            )
+            .then((result) => {
+                console.log("(query results)", result.rows);
+                return result.rows;
+            });
+    } else {
+        return postgresDb
+            .query("SELECT * FROM images ORDER BY id DESC LIMIT $1", [limit])
+            .then((result) => {
+                console.log("(query results)", result.rows);
+                return result.rows;
+            });
+    }
 }
 
 function saveImage({ title, description, username, url }) {
