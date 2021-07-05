@@ -1,20 +1,30 @@
 const express = require("express");
-const { getImages, getImageById, saveImage } = require("./db");
+const {
+    getCommentsByImgId,
+    getImages,
+    getImageById,
+    saveComment,
+    saveImage,
+} = require("./db");
 const path = require("path");
 const { uploader } = require("./file_upload");
 const { uploadFiles3 } = require("./s3");
 const app = express();
 const PORT = 9090;
 
-// console.log(__dirname, "/public");
-// console.log(path.resolve(__dirname + "public"));
-// console.log(path.join(__dirname, "public"));
-
 app.use(express.static(path.join(__dirname, "public")))
     .use(express.static(path.join(__dirname, "uploads")))
 
     .use(express.urlencoded({ extended: false }))
+    .use(express.json())
 
+    // Homepage
+    // .get("/", (request, response) => {
+    //     console.log("(GET /)");
+    //     console.log("(Request): ", request);
+    //     response.redirect("/");
+    // })
+    //GET /api/images.json
     .get("/api/images.json", (request, response) => {
         console.log("(GET /api/images.json)");
         getImages()
@@ -25,10 +35,7 @@ app.use(express.static(path.join(__dirname, "public")))
                 console.log("Error getting images from db: ", error);
             });
     })
-    .get("/", (request, response) => {
-        console.log("(GET /)");
-        console.log("(Request): ", request);
-    })
+    //GET /api/images/:imageid
     .get("/api/images/:imageid", (request, response) => {
         console.log("(GET /api/images/:imageid)");
         const { imageid } = request.params;
@@ -42,7 +49,21 @@ app.use(express.static(path.join(__dirname, "public")))
                 console.log("Error getting image from db: ", error);
             });
     })
-
+    //GET /api/images/:imageid/comments
+    .get("/api/images/:imageid/comments", (request, response) => {
+        console.log("(GET /api/images/:imageid/comments)");
+        const { imageid } = request.params;
+        console.log("(imageid): ", imageid);
+        getCommentsByImgId(imageid)
+            .then((comments) => {
+                console.log("...(getCommentsByImgId) result: ", comments);
+                response.json(comments);
+            })
+            .catch((error) => {
+                console.log("Error getting image from db: ", error);
+            });
+    })
+    //POST /api/upload
     .post(
         "/api/upload",
         uploader.single("picture"),
@@ -57,12 +78,14 @@ app.use(express.static(path.join(__dirname, "public")))
         }
     )
 
+    //PORT listen
     .listen(PORT, () => console.log(`...listening on PORT ${PORT}`));
 
+//saveToDb
+//middleware
 function saveToDb(request, response, next) {
     console.log("...(server saveToDb)");
-    // console.log("...(server saveToDb response", response);
-    console.log("...(saveToDb) request body: ", request.body);
+    // console.log("...(saveToDb) request body: ", request.body);
     saveImage(request.body).then((result) => {
         console.log("...(saveToDb) result: ", result);
         request.latestImage = result;
