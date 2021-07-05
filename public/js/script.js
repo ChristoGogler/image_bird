@@ -76,17 +76,15 @@
     Vue.component("single-picture", {
         props: ["id", "url", "title", "description", "username"],
         template: "#singlePicture",
-        data: {
-            function() {
-                return {
-                    id: null,
-                    url: "",
-                    title: "",
-                    description: "",
-                    username: "",
-                };
-            },
-        },
+        // data: function () {
+        //     return {
+        //         id: null,
+        //         url: "",
+        //         title: "",
+        //         description: "",
+        //         username: "",
+        //     };
+        // },
         methods: {
             emitClick: function (id) {
                 console.log(
@@ -103,15 +101,14 @@
 
     //vue component for lightbox
     Vue.component("light-box", {
-        props: ["id", "image"],
+        props: ["id"],
         template: "#lightBox",
-        data: {
-            function() {
-                return {
-                    image: {},
-                };
-            },
+        data: function () {
+            return {
+                image: {},
+            };
         },
+
         methods: {
             show() {
                 this.visible = true;
@@ -138,24 +135,33 @@
     Vue.component("comments", {
         props: ["image_id"],
         template: "#comments",
-        data: {
-            function() {
-                return {
-                    comments: [],
-                    comment: "",
-                    username: "",
-                    created_at: "",
-                };
+        data: function () {
+            return {
+                comments: [],
+                latestComment: "",
+                comment: "",
+                username: "",
+                created_at: "",
+            };
+        },
+        methods: {
+            submitComment: function () {
+                console.log("submitComment!", this.image_id);
+                axios
+                    .post(`/api/images/${this.image_id}/comments`)
+                    .then((response) => {
+                        this.latestComment = response.data;
+                        console.log("latestComment:", this.latestComment);
+                    });
             },
         },
-        methods: {},
         mounted: function () {
             console.log("comments mounted!", this.image_id);
             axios
                 .get(`/api/images/${this.image_id}/comments`)
                 .then((response) => {
                     this.comments = response.data;
-                    console.log("comments:", this.comments);
+                    console.log("comments:", response.data);
                 });
         },
     });

@@ -115,17 +115,16 @@
         </script>
         <script id="comments" type="text/x-template">
 
-            <div v-if="comments.length > 0">
+            <section v-if="comments.length > 0" class="allComments">
                 <ul>
                     <li v-for='comment in comments'>
-                        <div>
-                            <p>comment component</p>
-                            <p>{{comment.username}}</p>
+                        <div class="singleComment">
+                            <p>{{comment.comment}}</p>
                         </div>
                     </li>
 
                 </ul>
-            </div>
+            </section>
             <div v-else>
                 <p>no comments yet!</p>
             </div>
