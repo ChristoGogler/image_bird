@@ -34,8 +34,13 @@ const uploadFiles3 = (request, response, next) => {
         .promise()
         .then((result) => {
             if (result.ETag) {
+                console.log(request.file.path);
+                fs.unlink(request.file.path, (error) => {
+                    console.log(error);
+                });
                 console.log("UPLOAD TO AWS S3 successful: ", result);
             }
+
             next();
         })
         .catch((error) => {
