@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 (function () {
     const form = document.querySelector("#uploadForm");
     console.log("(script.js) form: ", form);
@@ -31,10 +33,19 @@
                 formData.append("username", this.username);
                 formData.append("picture", this.picture);
                 console.log("(Upload Form) formData: ", formData);
-                axios.post("/api/upload", formData).then((latestImage) => {
-                    console.log("(latestImage): ", latestImage.data[0]);
-                    this.images.unshift(latestImage.data[0]);
-                });
+                axios
+                    .post("/api/upload", formData)
+                    .then((latestImage) => {
+                        console.log("(latestImage): ", latestImage.data[0]);
+                        this.images.unshift(latestImage.data[0]);
+                        this.title = "";
+                        this.description = "";
+                        this.username = "";
+                        this.picture = null;
+                    })
+                    .catch((error) => {
+                        console.log("Error getting images from db.", error);
+                    });
             },
             insertFile: function (event) {
                 console.log(
@@ -146,7 +157,12 @@
                     })
                     .then((response) => {
                         this.latestComment = response.data;
-                        console.log("latestComment:", this.latestComment);
+                        this.comments.push(this.latestComment);
+                        // console.log("latestComment:", this.latestComment);
+                        this.comment = "";
+                    })
+                    .catch((error) => {
+                        console.log("Error getting comments from db", error);
                     });
             },
         },

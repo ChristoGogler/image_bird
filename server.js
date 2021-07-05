@@ -18,12 +18,6 @@ app.use(express.static(path.join(__dirname, "public")))
     .use(express.urlencoded({ extended: false }))
     .use(express.json())
 
-    // Homepage
-    // .get("/", (request, response) => {
-    //     console.log("(GET /)");
-    //     console.log("(Request): ", request);
-    //     response.redirect("/");
-    // })
     //GET /api/images.json
     .get("/api/images.json", (request, response) => {
         console.log("(GET /api/images.json)");
