@@ -44,15 +44,10 @@
                 this.picture = event.target.files[0];
             },
             openSinglePic: function (id) {
-                // console.log("...(main vue imageclick) id: ", id);
-                console.log(
-                    "...(main vue openSinglePic) currentImageId: ",
-                    this.currentImageId
-                );
                 this.currentImageId = id;
                 this.lightboxVisible = true;
                 console.log(
-                    "...(main vue imageclick) currentImageId: ",
+                    "...(main vue openSinglePic) currentImageId: ",
                     this.currentImageId
                 );
             },
@@ -84,11 +79,11 @@
         data: {
             function() {
                 return {
-                    id: this.id,
-                    url: this.url,
-                    title: this.title,
-                    description: this.description,
-                    username: this.username,
+                    id: null,
+                    url: "",
+                    title: "",
+                    description: "",
+                    username: "",
                 };
             },
         },
@@ -100,6 +95,9 @@
                 );
                 this.$emit("image-clicked", id);
             },
+        },
+        mounted: function () {
+            console.log("single pix mounted!", this.id);
         },
     });
 
@@ -130,9 +128,35 @@
         mounted: function () {
             console.log("lightbox mounted!", this.id);
             axios.get("/api/images/" + this.id).then((response) => {
-                console.log("response.data", response.data);
+                // console.log("response.data", response.data);
                 this.image = response.data;
             });
+        },
+    });
+
+    //vue component for comments
+    Vue.component("comments", {
+        props: ["image_id"],
+        template: "#comments",
+        data: {
+            function() {
+                return {
+                    comments: [],
+                    comment: "",
+                    username: "",
+                    created_at: "",
+                };
+            },
+        },
+        methods: {},
+        mounted: function () {
+            console.log("comments mounted!", this.image_id);
+            axios
+                .get(`/api/images/${this.image_id}/comments`)
+                .then((response) => {
+                    this.comments = response.data;
+                    console.log("comments:", this.comments);
+                });
         },
     });
 })();

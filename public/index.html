@@ -13,11 +13,12 @@
     <body>
         <header></header>
         <main id="main">
-            <img
-                class="logo"
-                src="./img/logo.png"
-                alt="LOGO - The Image B🪶rd"
-            />
+            <a href="/"
+                ><img
+                    class="logo"
+                    src="./img/logo.png"
+                    alt="LOGO - The Image B🪶rd"
+            /></a>
             <section id="uploadForm">
                 <form
                     id="uploadForm"
@@ -63,7 +64,7 @@
                         v-on:click="uploadFile"
                         type="submit"
                     >
-                        <img src="" alt="" /> Upload
+                        <img src="./img/iconupload.png" alt="upload" />
                     </button>
                 </form>
             </section>
@@ -82,7 +83,8 @@
                 v-if="lightboxVisible"
                 :id="currentImageId"
                 @button-clicked="closeSinglePic()"
-            ></light-box>
+            >
+            </light-box>
         </main>
         <footer></footer>
 
@@ -93,7 +95,7 @@
 
         <script id="singlePicture" type="text/x-template">
             <div class="photoframe" @click="emitClick(id)">
-                <img v-bind:src="url" v-bind:alt="title" />
+                <img class="thumbnail" v-bind:src="url" v-bind:alt="title" />
                 <p>{{title}}</p>
             </div>
         </script>
@@ -106,7 +108,26 @@
                         <p>{{image.description}}</p>
                         <button class="button closeButton" @click="emitClick()">×</button>
                     </aside>
+                    <comments v-bind:image_id="id">
+                        </comments>
                 </article>
+            </div>
+        </script>
+        <script id="comments" type="text/x-template">
+
+            <div v-if="comments.length > 0">
+                <ul>
+                    <li v-for='comment in comments'>
+                        <div>
+                            <p>comment component</p>
+                            <p>{{comment.username}}</p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div v-else>
+                <p>no comments yet!</p>
             </div>
         </script>
     </body>
