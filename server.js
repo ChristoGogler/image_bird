@@ -10,7 +10,7 @@ const path = require("path");
 const { uploader } = require("./file_upload");
 const { uploadFiles3 } = require("./s3");
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.static(path.join(__dirname, "public")))
     .use(express.static(path.join(__dirname, "uploads")))

@@ -79,9 +79,9 @@
                     @image-clicked="openSinglePic(image.id)"
                 ></single-picture>
             </section>
-            <button @click="moreButtonClick()">More</button>
+            <button v-if="morePix" @click="moreButtonClick()">More</button>
             <light-box
-                v-if="lightboxVisible"
+                v-if="currentImageId"
                 :id="currentImageId"
                 @button-clicked="closeSinglePic()"
             >
@@ -120,8 +120,8 @@
                     <ul class="listOfComments">
                         <li v-for='comment in comments'>
                             <div class="singleComment">
-                                <p>{{comment.username}} --> {{comment.comment}}</p>
-                                <p>{{comment.created_at}}</p>
+                                <p><span class="author">{{comment.username}}</span> - <span class="date">{{comment.created_at}}</span></p>
+                                <p>{{comment.comment}}</p>
                             </div>
                         </li>
                     </ul>

@@ -15,8 +15,9 @@
             username: "",
             picture: null,
             currentImageId: null,
-            lightboxVisible: false,
+            // lightboxVisible: false,
             last_id: null,
+            morePix: true,
         },
         methods: {
             uploadFile: function (event) {
@@ -51,7 +52,7 @@
             },
             openSinglePic: function (id) {
                 this.currentImageId = id;
-                this.lightboxVisible = true;
+                // this.lightboxVisible = true;
                 console.log(
                     "...(main vue openSinglePic) currentImageId: ",
                     this.currentImageId
@@ -60,7 +61,7 @@
             closeSinglePic: function () {
                 console.log("...(main vue closeSinglePic)");
                 this.currentImageId = null;
-                this.lightboxVisible = false;
+                // this.lightboxVisible = false;
             },
             changeHeading: function () {
                 console.log("...(changeHeading)");
@@ -77,7 +78,6 @@
                     console.log("(mounted) :", images.data);
                     this.images = [...this.images, ...images.data];
                     this.lastImageID = images.data[images.data.length - 1].id;
-                    console.log("lastImageId: ", this.lastImageID);
                 });
             },
         },
@@ -91,16 +91,16 @@
                 limit: IMAGES_TO_SHOW,
             };
             console.log("PARAMS: ", params);
-            axios.get("/api/images.json", { params }).then((images) => {
-                console.log(
-                    "(mounted) :",
-                    images.data,
-                    images.data[images.data.length - 1].id
-                );
-                this.images = images.data;
-                this.lastImageID = images.data[images.data.length - 1].id;
-                console.log("lastImageId: ", this.lastImageID);
-            });
+            axios
+                .get("/api/images.json", { params })
+                .then((images) => {
+                    this.images = images.data;
+                    this.lastImageID = images.data[images.data.length - 1].id;
+                })
+                .catch((error) => {
+                    console.log("Error getting images from db. ", error);
+                    this.morePix = false;
+                });
         },
     });
 
