@@ -14,11 +14,12 @@
             description: "",
             username: "",
             picture: null,
-            currentImageId: null,
+            currentImageId: location.hash.slice(1),
             // lightboxVisible: false,
             last_id: null,
             morePix: true,
         },
+
         methods: {
             uploadFile: function (event) {
                 event.preventDefault();
@@ -32,7 +33,7 @@
                 axios
                     .post("/api/upload", formData)
                     .then((latestImage) => {
-                        console.log("(latestImage): ", latestImage.data[0]);
+                        // console.log("(latestImage): ", latestImage.data[0]);
                         this.images.unshift(latestImage.data[0]);
                         this.title = "";
                         this.description = "";
@@ -51,20 +52,17 @@
                 this.picture = event.target.files[0];
             },
             openSinglePic: function (id) {
+                console.log("...(main vue openSinglePic) id: ", id);
                 this.currentImageId = id;
-                // this.lightboxVisible = true;
-                console.log(
-                    "...(main vue openSinglePic) currentImageId: ",
-                    this.currentImageId
-                );
             },
             closeSinglePic: function () {
                 console.log("...(main vue closeSinglePic)");
                 this.currentImageId = null;
+                location.hash = "";
                 // this.lightboxVisible = false;
             },
             changeHeading: function () {
-                console.log("...(changeHeading)");
+                // console.log("...(changeHeading)");
             },
             moreButtonClick: function () {
                 console.log("moreButtonClick");
@@ -72,17 +70,15 @@
                     last_id: this.lastImageID,
                     limit: IMAGES_TO_SHOW,
                 };
-                console.log("PARAMS: ", params);
+                // console.log("PARAMS: ", params);
 
                 axios.get("/api/images.json", { params }).then((images) => {
-                    console.log("(mounted) :", images.data);
+                    // console.log("(mounted) :", images.data);
                     this.images = [...this.images, ...images.data];
                     this.lastImageID = images.data[images.data.length - 1].id;
                 });
             },
         },
-
-        created: () => console.log("vue created!"),
 
         mounted: function () {
             console.log("vue mounted!");
@@ -90,7 +86,7 @@
                 last_id: this.lastImageID,
                 limit: IMAGES_TO_SHOW,
             };
-            console.log("PARAMS: ", params);
+            // console.log("PARAMS: ", params);
             axios
                 .get("/api/images.json", { params })
                 .then((images) => {
@@ -101,12 +97,22 @@
                     console.log("Error getting images from db. ", error);
                     this.morePix = false;
                 });
+
+            console.log("BEFORE EVENTLISTENER");
+            window.addEventListener("hashchange", newFunction());
         },
     });
 
     //vue component for single pictures
     Vue.component("single-picture", {
-        props: ["id", "url", "title", "description", "username"],
+        props: [
+            "id",
+            "url",
+            "title",
+            "description",
+            "username",
+            "currentImageId",
+        ],
         template: "#singlePicture",
         methods: {
             emitClick: function (id) {
@@ -131,7 +137,15 @@
                 image: {},
             };
         },
-
+        watch: {
+            function() {
+                console.log("lightbox mounted!", this.id);
+                axios.get("/api/images/" + this.id).then((response) => {
+                    // console.log("response.data", response.data);
+                    this.image = response.data;
+                });
+            },
+        },
         methods: {
             show() {
                 this.visible = true;
@@ -198,6 +212,10 @@
         },
     });
 })();
+function newFunction() {
+    return console.log(location.hash);
+}
+
 function getMoreImages(params) {
     axios.get("/api/images.json", { params }).then((images) => {
         console.log("(mounted) :", images.data);

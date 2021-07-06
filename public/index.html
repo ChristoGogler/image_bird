@@ -95,10 +95,10 @@
         <!-- single-picture component -->
 
         <script id="singlePicture" type="text/x-template">
-            <div class="photoframe" @click="emitClick(id)">
+            <a :href="'#' + id"><div class="photoframe" >
                 <img class="thumbnail" v-bind:src="url" v-bind:alt="title" />
                 <p>{{title}}</p>
-            </div>
+            </div></a>
         </script>
         <script id="lightBox" type="text/x-template">
             <div class="backdrop">
