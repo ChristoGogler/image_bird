@@ -93,6 +93,7 @@ function saveComment({ imageId, username, comment }) {
             [username, comment, imageId]
         )
         .then((result) => {
+            changeDateToTimepast(result);
             console.log("...(saveComment) query result: ", result.rows[0]);
             return result.rows[0];
         });

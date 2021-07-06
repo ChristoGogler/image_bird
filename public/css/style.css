@@ -211,11 +211,13 @@ q {
     font-size: 0.8rem;
     color: #4d4c4d;
     line-height: 1.5;
+    padding: auto;
 }
 .author {
     font-size: 0.8rem;
 }
 .date {
+    float: right;
     font-size: 0.5rem;
 }
 .commentBody {
