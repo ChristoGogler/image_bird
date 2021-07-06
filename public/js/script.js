@@ -51,9 +51,12 @@
                 );
                 this.picture = event.target.files[0];
             },
-            openSinglePic: function (id) {
-                console.log("...(main vue openSinglePic) id: ", id);
-                this.currentImageId = id;
+            openSinglePic: function () {
+                console.log(
+                    "...(main vue openSinglePic) id: ",
+                    location.hash.slice(1)
+                );
+                this.currentImageId = location.hash.slice(1);
             },
             closeSinglePic: function () {
                 console.log("...(main vue closeSinglePic)");
@@ -97,9 +100,8 @@
                     console.log("Error getting images from db. ", error);
                     this.morePix = false;
                 });
-
             console.log("BEFORE EVENTLISTENER");
-            window.addEventListener("hashchange", newFunction());
+            window.addEventListener("hashchange", this.openSinglePic);
         },
     });
 
@@ -115,16 +117,16 @@
         ],
         template: "#singlePicture",
         methods: {
-            emitClick: function (id) {
+            emitClick: function () {
                 console.log(
                     "...(single picture component - emitClick) id: ",
-                    id
+                    this.currentImageId
                 );
-                this.$emit("image-clicked", id);
+                this.$emit("image-clicked", this.currentImageId);
             },
         },
         mounted: function () {
-            console.log("single pix mounted!", this.id);
+            // console.log("single pix mounted!", this.id);
         },
     });
 
