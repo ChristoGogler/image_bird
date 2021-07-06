@@ -1,17 +1,30 @@
 const aws = require("aws-sdk");
 const fs = require("fs");
 
-let secrets;
-if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
+// let secrets;
+// if (process.env.NODE_ENV == "production") {
+//     secrets = process.env; // in prod the secrets are environment variables
+// } else {
+//     secrets = require("./secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
+// }
+let s3;
+if (process.env.accessKeyId) {
+    // console.log("(s3.js) secrets: ", secrets);
+    s3 = new aws.S3({
+        accessKeyId: process.env.accessKeyId,
+        secretAccessKey: process.env.secretAccessKey,
+    });
 } else {
-    secrets = require("./secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
+    s3 = new aws.S3({
+        accessKeyId: secrets.accessKeyId,
+        secretAccessKey: secrets.secretAccessKey,
+    });
 }
-// console.log("(s3.js) secrets: ", secrets);
-const s3 = new aws.S3({
-    accessKeyId: secrets.accessKeyIDd,
-    secretAccessKey: secrets.secretAccessKey,
-});
+// // console.log("(s3.js) secrets: ", secrets);
+// const s3 = new aws.S3({
+//     accessKeyId: secrets.accessKeyIDd,
+//     secretAccessKey: secrets.secretAccessKey,
+// });
 
 const uploadFiles3 = (request, response, next) => {
     // console.log("...(uploadFiles3) s3: ", s3.accessKeyId, s3.secretAccessKey);
