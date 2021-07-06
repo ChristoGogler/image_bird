@@ -108,8 +108,8 @@
         </script>
         <script id="lightBox" type="text/x-template">
             <div class="backdrop">
-                <div class="backdropContent">
-                    <article class="imageWrapper">
+                <div class="backdropContent" >
+                    <article class="imageWrapper" v-on:click.stop>
                         <h1 class="heading">{{image.title}}</h1>
                         <button class="button closeButton" @click="emitClick()">×</button>
                         <img class="lightboxImg" :src="image.url" :alt="image.title" />
@@ -123,7 +123,7 @@
             </div>
         </script>
         <script id="comments" type="text/x-template">
-            <section class="commentSlider">
+            <section class="commentSlider" v-on:click.stop>
                 <section v-if="comments.length > 0">
                     <ul class="listOfComments">
                         <li v-for='comment in comments'>
