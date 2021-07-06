@@ -50,15 +50,17 @@
                         placeholder="username"
                         v-model="username"
                     />
-                    <input
-                        class="textfield"
-                        id="picture"
-                        type="file"
-                        accept="image/*"
-                        name="picture"
-                        v-on:change="insertFile"
-                        required
-                    />
+                    <label class="file-upload" for="picture">
+                        <input
+                            class="textfield"
+                            id="picture"
+                            type="file"
+                            accept="image/*"
+                            name="picture"
+                            v-on:change="insertFile"
+                            required
+                        /><span>chose picture</span></label
+                    >
                     <button
                         class="button submitButton"
                         v-on:click="uploadFile"
@@ -87,7 +89,11 @@
             >
             </light-box>
         </main>
-        <footer></footer>
+        <footer>
+            <a href="/"
+                ><p>The Image Bird by Christo Gogler 2021 @ SPICED</p></a
+            >
+        </footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
@@ -102,15 +108,18 @@
         </script>
         <script id="lightBox" type="text/x-template">
             <div class="backdrop">
-                <article class="imageWrapper">
-                    <h1 class="heading">{{image.title}}</h1>
-                    <img class="lightboxImg" :src="image.url" :alt="image.title" />
-                    <aside class="imgDetails">
-                        <p>{{image.description}}</p>
+                <div class="backdropContent">
+                    <article class="imageWrapper">
+                        <h1 class="heading">{{image.title}}</h1>
                         <button class="button closeButton" @click="emitClick()">×</button>
-                    </aside>
-                </article>
-                <comments v-bind:image_id="id"></comments>
+                        <img class="lightboxImg" :src="image.url" :alt="image.title" />
+                        <aside class="imgDetails">
+                            <p>{{image.description}}</p>
+
+                        </aside>
+                    </article>
+                    <comments v-bind:image_id="id"></comments>
+                </div>
             </div>
         </script>
         <script id="comments" type="text/x-template">
@@ -120,21 +129,28 @@
                         <li v-for='comment in comments'>
                             <div class="singleComment">
                                 <p><span class="author">{{comment.username}}</span> - <span class="date">{{comment.created_at}}</span></p>
-                                <p>{{comment.comment}}</p>
+                                <q class="commentBody">{{comment.comment}}</q>
                             </div>
                         </li>
                     </ul>
                 </section>
                 <section v-else class="noComments">
-                    <p>no comments yet!</p>
+                    <ul class="listOfComments">
+                        <li>
+                            <div class="singleComment">
+                                <p>no comments yet!</p>
+                            </div>
+                        </li>
+                    </ul>
+
                 </section>
 
                 <form id="addCommentForm"
                     @submit.prevent="submitComment">
-                    <input type="text" v-model="username" placeholder="...your name">
-                    <textarea v-model="comment" placeholder="...your comment" rows="1"></textarea>
+                    <input type="text" v-model="username" placeholder="name">
+                    <textarea v-model="comment" placeholder="Leave a comment..." rows="1"></textarea>
                     <button
-                        class="button submitButton"
+                        class="button postButton"
                         type="submit"
                     >post</button>
                 </form>

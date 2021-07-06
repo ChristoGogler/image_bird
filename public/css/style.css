@@ -9,6 +9,10 @@
     background-color: #c4e7ea;
     color: #ff9293;
 }
+::placeholder {
+    color: #ff9293;
+    opacity: 0.7;
+}
 a {
     text-decoration: none;
 }
@@ -36,23 +40,37 @@ button {
 .textfield {
     padding: 5px 10px;
     margin-right: 5px;
-    max-width: 200px;
+    max-width: 15vw;
     border: none;
+}
+input[type="file"] {
+    display: none;
+}
+.file-upload {
+    min-width: 100px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: white !important;
+    cursor: pointer;
+    color: #ff9293;
+}
+.file-upload span {
+    opacity: 0.7;
 }
 
 .submitButton {
     background-color: #ff9293;
     width: 60px;
-    height: 60px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
+    margin-left: 20px;
+}
+.submitButton img {
+    width: 40px;
 }
 .submitButton:hover {
     cursor: pointer;
     box-shadow: 0px 0px 10px #4d4c4d;
-}
-
-.submitButton img {
-    width: 50px;
 }
 /* end uploadForm */
 
@@ -110,10 +128,6 @@ button {
     width: 100vw;
     height: 100vh;
     background-color: rgba(90, 70, 70, 0.8);
-    /* display: flex;
-
-    justify-content: space-between;
-    align-items: center; */
 }
 
 .backdropContent {
@@ -143,7 +157,7 @@ button {
     box-shadow: 0px 0px 10px #4d4c4d;
 }
 .lightboxImg {
-    /* max-height: 60vh; */
+    max-height: 70vh;
     margin: 10px 0;
     object-fit: contain; /* padding-bottom: 10px; */
     /* border-bottom: 3px solid white; */
@@ -212,12 +226,12 @@ q {
 }
 #addCommentForm {
     padding: 20px 20px;
-    border-top: 2px solid #4d4c4d;
     display: flex;
     align-items: center;
     align-content: center;
 }
 #addCommentForm input {
+    max-width: 100px;
     text-align: start;
 }
 #addCommentForm textarea {
@@ -237,6 +251,14 @@ textarea {
 }
 
 /* end comments */
+
+footer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c4e7ea;
+}
 
 @media only screen and (max-width: 1200px) {
     .backdrop {
@@ -269,23 +291,42 @@ textarea {
         width: 95vw;
         padding: 10px 0 0 0;
     }
+    .closeButton {
+        right: 50px;
+    }
 }
 
 /* media queries: middle/small screens */
 @media only screen and (max-width: 768px) {
     body {
-        background-color: teal;
     }
-    */ .photoframe {
+    .photoframe {
         width: 45vw;
     }
+    .closeButton {
+        right: 30px;
+    }
+    .submitButton {
+        background-color: #ff9293;
+        width: 40px;
 
-    /* lightbox */
+        border-radius: 50%;
+    }
+    .submitButton img {
+        width: 30px;
+    }
+
+    ::placeholder {
+        font-size: 0.6rem;
+    }
+
+    .file-upload span {
+        font-size: 0.7rem;
+    }
 }
 
 @media only screen and (max-width: 550px) {
     body {
-        background-color: tomato;
     }
 
     .photoframe {
