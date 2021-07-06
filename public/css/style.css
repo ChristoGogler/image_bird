@@ -9,6 +9,9 @@
     background-color: #c4e7ea;
     color: #ff9293;
 }
+a {
+    text-decoration: none;
+}
 p {
     color: white;
 }
@@ -132,15 +135,16 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 90vh;
+    /* height: 90vh; */
     text-align: center;
     margin-left: 5%;
-    padding: 0 20px 10px;
+    padding: 20px;
     background: white;
     box-shadow: 0px 0px 10px #4d4c4d;
 }
 .lightboxImg {
-    max-height: 60vh;
+    /* max-height: 60vh; */
+    margin: 10px 0;
     object-fit: contain; /* padding-bottom: 10px; */
     /* border-bottom: 3px solid white; */
 }
@@ -186,7 +190,8 @@ button {
     margin: 0 20px;
     padding: 5px 10px;
 }
-.singleComment p {
+.singleComment p,
+q {
     font-size: 0.8rem;
     color: #4d4c4d;
     line-height: 1.5;
@@ -196,6 +201,10 @@ button {
 }
 .date {
     font-size: 0.5rem;
+}
+.commentBody {
+    padding-left: 10px;
+    quotes: "„" "“" "‚" "‘";
 }
 .noComments p {
     font-size: 0.8rem;
@@ -222,22 +231,14 @@ textarea {
     border: none;
 }
 .postButton {
+    font-size: 0.7rem;
     float: right;
     padding: 0 20px;
 }
 
 /* end comments */
 
-/* media queries: middle/small screens */
-@media only screen and (max-width: 768px) {
-    body {
-        background-color: teal;
-    }
-    */ .photoframe {
-        width: 45vw;
-    }
-
-    /* lightbox */
+@media only screen and (max-width: 1200px) {
     .backdrop {
         flex-direction: column;
     }
@@ -259,59 +260,27 @@ textarea {
     }
     .lightboxImg {
         max-height: 60vh;
-        object-fit: contain; /* padding-bottom: 10px; */
-        /* border-bottom: 3px solid white; */
+        object-fit: contain;
+        padding-bottom: 20px;
     }
 
-    .imgDetails {
-        /* border: 3px solid white; */
-        padding: 0 10px;
-    }
-    .imgDetails p {
-        color: #4d4c4d;
-    }
-    .closeButton {
-        display: inline-block;
-        float: right;
-    }
-    .closeButton:hover {
-        cursor: pointer;
-    }
     /* comments */
     .commentSlider {
         width: 95vw;
         padding: 10px 0 0 0;
     }
+}
 
-    .listOfComments {
-        list-style: none;
+/* media queries: middle/small screens */
+@media only screen and (max-width: 768px) {
+    body {
+        background-color: teal;
     }
-    .singleComment p {
-        color: #4d4c4d;
+    */ .photoframe {
+        width: 45vw;
     }
 
-    .noComments p {
-        color: #4d4c4d;
-    }
-    #addCommentForm {
-        padding-top: 10px;
-        border-top: 2px solid #4d4c4d;
-        display: flex;
-        align-items: center;
-    }
-    #addCommentForm input {
-        text-align: start;
-        display: flex;
-        flex: 1;
-    }
-    #addCommentForm textarea {
-        display: flex;
-        flex: 2;
-    }
-    #addCommentForm input,
-    textarea {
-        border: none;
-    }
+    /* lightbox */
 }
 
 @media only screen and (max-width: 550px) {
