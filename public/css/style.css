@@ -16,6 +16,8 @@ p {
 button {
     background: none;
     border: none;
+    color: #ff9293;
+    cursor: pointer;
 }
 /* end general setup */
 
@@ -63,11 +65,15 @@ button {
 
     justify-content: center;
 }
+#moreButton {
+    visibility: hidden;
+}
 .logo {
-    width: 1000px;
+    width: 100vw;
+    max-width: 1000px;
 }
 .photoframe {
-    width: 300px;
+    width: 20vw;
     aspect-ratio: 5/6;
     padding: 5px;
     margin: 10px;
@@ -101,8 +107,17 @@ button {
     width: 100vw;
     height: 100vh;
     background-color: rgba(90, 70, 70, 0.8);
+    /* display: flex;
+
+    justify-content: space-between;
+    align-items: center; */
+}
+
+.backdropContent {
+    height: 100%;
+    overflow: scroll;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -113,11 +128,13 @@ button {
     border: 3px solid currentColor;
 }
 .imageWrapper {
+    flex-shrink: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     height: 90vh;
     text-align: center;
+    margin-left: 5%;
     padding: 0 20px 10px;
     background: white;
     box-shadow: 0px 0px 10px #4d4c4d;
@@ -138,6 +155,9 @@ button {
 .closeButton {
     color: #ff9293;
     font-size: 2rem;
+    position: absolute;
+    top: 10px;
+    right: 30px;
 }
 .closeButton:hover {
     cursor: pointer;
@@ -146,34 +166,161 @@ button {
 /* end lightbox */
 
 /* comments */
+.commentSlider {
+    height: 100vh;
+    padding-top: 80px;
+    flex: min-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+}
 
 .listOfComments {
     list-style: none;
+    padding: 0;
+    overflow: scroll;
+}
+.listOfComments li {
+    border-bottom: 2px solid #ff9293;
+    margin: 0 20px;
+    padding: 5px 10px;
 }
 .singleComment p {
+    font-size: 0.8rem;
     color: #4d4c4d;
+    line-height: 1.5;
+}
+.author {
+    font-size: 0.8rem;
+}
+.date {
+    font-size: 0.5rem;
+}
+.noComments p {
+    font-size: 0.8rem;
+    color: #4d4c4d;
+}
+#addCommentForm {
+    padding: 20px 20px;
+    border-top: 2px solid #4d4c4d;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+#addCommentForm input {
+    text-align: start;
+}
+#addCommentForm textarea {
+}
+#addCommentForm input,
+textarea {
+    font-size: 0.7rem;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    border: none;
+}
+.postButton {
+    float: right;
+    padding: 0 20px;
 }
 
-.noComments p {
-    color: #4d4c4d;
-}
 /* end comments */
 
 /* media queries: middle/small screens */
-@media screen and (max-width: 768px) {
-    .photoframe {
-        width: 45%;
+@media only screen and (max-width: 768px) {
+    body {
+        background-color: teal;
+    }
+    */ .photoframe {
+        width: 45vw;
     }
 
-    .photoframe img {
+    /* lightbox */
+    .backdrop {
+        flex-direction: column;
     }
-    .photoframe p {
+    .backdropContent {
+        height: 100%;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between;
+        align-items: center; */
+    }
+    .heading {
+        margin: 10px;
+    }
+    .imageWrapper {
+        width: 95vw;
+        margin: 0;
+        padding: 0;
+    }
+    .lightboxImg {
+        max-height: 60vh;
+        object-fit: contain; /* padding-bottom: 10px; */
+        /* border-bottom: 3px solid white; */
+    }
+
+    .imgDetails {
+        /* border: 3px solid white; */
+        padding: 0 10px;
+    }
+    .imgDetails p {
+        color: #4d4c4d;
+    }
+    .closeButton {
+        display: inline-block;
+        float: right;
+    }
+    .closeButton:hover {
+        cursor: pointer;
+    }
+    /* comments */
+    .commentSlider {
+        width: 95vw;
+        padding: 10px 0 0 0;
+    }
+
+    .listOfComments {
+        list-style: none;
+    }
+    .singleComment p {
+        color: #4d4c4d;
+    }
+
+    .noComments p {
+        color: #4d4c4d;
+    }
+    #addCommentForm {
+        padding-top: 10px;
+        border-top: 2px solid #4d4c4d;
+        display: flex;
+        align-items: center;
+    }
+    #addCommentForm input {
+        text-align: start;
+        display: flex;
+        flex: 1;
+    }
+    #addCommentForm textarea {
+        display: flex;
+        flex: 2;
+    }
+    #addCommentForm input,
+    textarea {
+        border: none;
     }
 }
 
-@media screen and (max-width: 580px) {
+@media only screen and (max-width: 550px) {
+    body {
+        background-color: tomato;
+    }
+
     .photoframe {
-        width: 90%;
+        width: 95vw;
     }
 }
 /* end media queries */
