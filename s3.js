@@ -1,6 +1,6 @@
 const aws = require("aws-sdk");
 const fs = require("fs");
-
+const secrets = require("./secrets.json");
 // let secrets;
 // if (process.env.NODE_ENV == "production") {
 //     secrets = process.env; // in prod the secrets are environment variables
