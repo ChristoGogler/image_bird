@@ -141,14 +141,17 @@
         },
         watch: {
             id: function () {
-                console.log("lightbox mounted!", this.id);
-                axios.get("/api/images/" + this.id).then((response) => {
-                    // console.log("response.data", response.data);
-                    this.image = response.data;
-                });
+                this.mountLightbox();
             },
         },
         methods: {
+            mountLightbox() {
+                console.log("lightbox mounted!", this.id);
+                axios.get("/api/images/" + this.id).then((response) => {
+                    this.image = response.data;
+                });
+            },
+
             show() {
                 this.visible = true;
             },
@@ -162,11 +165,7 @@
             },
         },
         mounted: function () {
-            console.log("lightbox mounted!", this.id);
-            axios.get("/api/images/" + this.id).then((response) => {
-                // console.log("response.data", response.data);
-                this.image = response.data;
-            });
+            this.mountLightbox();
         },
     });
 
@@ -214,13 +213,3 @@
         },
     });
 })();
-function newFunction() {
-    return console.log(location.hash);
-}
-
-function getMoreImages(params) {
-    axios.get("/api/images.json", { params }).then((images) => {
-        console.log("(mounted) :", images.data);
-        this.images = images.data;
-    });
-}
