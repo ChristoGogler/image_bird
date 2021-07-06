@@ -76,7 +76,6 @@
                 // console.log("PARAMS: ", params);
 
                 axios.get("/api/images.json", { params }).then((images) => {
-                    // console.log("(mounted) :", images.data);
                     this.images = [...this.images, ...images.data];
                     this.lastImageID = images.data[images.data.length - 1].id;
                 });
@@ -100,7 +99,6 @@
                     console.log("Error getting images from db. ", error);
                     this.morePix = false;
                 });
-            console.log("BEFORE EVENTLISTENER");
             window.addEventListener("hashchange", this.openSinglePic);
         },
     });
@@ -148,17 +146,17 @@
             mountLightbox() {
                 console.log("lightbox mounted!", this.id);
                 axios.get("/api/images/" + this.id).then((response) => {
+                    console.log("Response data: ", response.data);
+                    if (!response.data) {
+                        console.log("not an image id!");
+                        this.image = {};
+                        this.emitClick();
+                        return;
+                    }
                     this.image = response.data;
                 });
             },
 
-            show() {
-                this.visible = true;
-            },
-            hide() {
-                this.visible = false;
-                this.currentImage = null;
-            },
             emitClick() {
                 console.log("...(lightbox component - emitClick)");
                 this.$emit("button-clicked");
