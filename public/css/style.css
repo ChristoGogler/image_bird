@@ -143,13 +143,13 @@ input[type="file"] {
     color: #ff9293;
     padding: 5px 0;
     border: 3px solid currentColor;
+    width: 100%;
 }
 .imageWrapper {
-    flex-shrink: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    /* height: 90vh; */
+    align-items: center;
     text-align: center;
     margin-left: 5%;
     padding: 20px;
@@ -164,10 +164,12 @@ input[type="file"] {
 }
 
 .imgDetails {
+    text-align: center;
     /* border: 3px solid white; */
     padding: 0 10px;
 }
 .imgDetails p {
+    max-width: 50vw;
     color: #4d4c4d;
 }
 .closeButton {
@@ -279,6 +281,9 @@ footer {
         width: 95vw;
         margin: 0;
         padding: 0;
+    }
+    .imgDetails p {
+        max-width: 80vw;
     }
     .lightboxImg {
         max-height: 60vh;
