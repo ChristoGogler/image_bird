@@ -79,7 +79,7 @@
                     @image-clicked="openSinglePic(image.id)"
                 ></single-picture>
             </section>
-            <button v-if="morePix" @click="moreButtonClick()">More</button>
+            <button id="moreButton" @click="moreButtonClick()">More</button>
             <light-box
                 v-if="currentImageId"
                 :id="currentImageId"
@@ -88,7 +88,7 @@
             </light-box>
         </main>
         <footer></footer>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="js/script.js"></script>
@@ -109,13 +109,12 @@
                         <p>{{image.description}}</p>
                         <button class="button closeButton" @click="emitClick()">×</button>
                     </aside>
-                    <comments v-bind:image_id="id">
-                        </comments>
                 </article>
+                <comments v-bind:image_id="id"></comments>
             </div>
         </script>
         <script id="comments" type="text/x-template">
-            <section>
+            <section class="commentSlider">
                 <section v-if="comments.length > 0">
                     <ul class="listOfComments">
                         <li v-for='comment in comments'>
@@ -133,11 +132,11 @@
                 <form id="addCommentForm"
                     @submit.prevent="submitComment">
                     <input type="text" v-model="username" placeholder="...your name">
-                    <textarea v-model="comment" placeholder="...your comment"></textarea>
+                    <textarea v-model="comment" placeholder="...your comment" rows="1"></textarea>
                     <button
                         class="button submitButton"
                         type="submit"
-                    >send comment</button>
+                    >post</button>
                 </form>
             </section>
         </script>

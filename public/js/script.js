@@ -1,5 +1,6 @@
 (function () {
     const IMAGES_TO_SHOW = 12;
+    const SCROLLING_OFFSET = 200;
 
     const form = document.querySelector("#uploadForm");
     console.log("(script.js) form: ", form);
@@ -21,6 +22,39 @@
         },
 
         methods: {
+            hasScrolledCloseToBottom: function () {
+                // console.log("hasScrolledCloseToBottom");
+
+                var pageHeight = $(document).height();
+                var windowHeight = $(window).height();
+                var scrollTop = $(document).scrollTop();
+                console.log(
+                    pageHeight - windowHeight - scrollTop,
+                    SCROLLING_OFFSET
+                );
+                if (pageHeight - windowHeight - scrollTop < SCROLLING_OFFSET) {
+                    // console.log("close to bottom", true);
+                    return true;
+                }
+                console.log(false);
+                return false;
+            },
+            loadInfiniteScrollResults: function () {
+                console.log("loadInfiniteScroll");
+                console.log("morePix: ", this.morePix);
+                if (this.morePix == false) {
+                    console.log("no more pix!");
+                    //no more results
+                    return;
+                }
+                if (this.hasScrolledCloseToBottom()) {
+                    // get more results
+                    $("#moreButton").trigger("click");
+                    setTimeout(this.loadInfiniteScrollResults, 1000);
+                } else {
+                    setTimeout(this.loadInfiniteScrollResults, 1000);
+                }
+            },
             uploadFile: function (event) {
                 event.preventDefault();
                 console.log("(UploadFile): Button clicked!");
@@ -76,6 +110,12 @@
                 // console.log("PARAMS: ", params);
 
                 axios.get("/api/images.json", { params }).then((images) => {
+                    console.log("IMAGES", images.data.length);
+                    if (images.data.length == 0) {
+                        console.log("GET IMAGES: ", images);
+                        this.morePix = false;
+                        console.log("GET IMAGES: ", images, this.morePix);
+                    }
                     this.images = [...this.images, ...images.data];
                     this.lastImageID = images.data[images.data.length - 1].id;
                 });
@@ -100,6 +140,8 @@
                     this.morePix = false;
                 });
             window.addEventListener("hashchange", this.openSinglePic);
+
+            setTimeout(this.loadInfiniteScrollResults, 3000);
         },
     });
 
