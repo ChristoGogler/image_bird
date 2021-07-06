@@ -16,7 +16,7 @@ if (process.env.accessKeyId) {
     });
 } else {
     s3 = new aws.S3({
-        accessKeyId: secrets.accessKeyId,
+        accessKeyId: secrets.accessKeyID,
         secretAccessKey: secrets.secretAccessKey,
     });
 }
