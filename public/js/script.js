@@ -28,20 +28,20 @@
                 var pageHeight = $(document).height();
                 var windowHeight = $(window).height();
                 var scrollTop = $(document).scrollTop();
-                console.log(
-                    pageHeight - windowHeight - scrollTop,
-                    SCROLLING_OFFSET
-                );
+                // console.log(
+                //     pageHeight - windowHeight - scrollTop,
+                //     SCROLLING_OFFSET
+                // );
                 if (pageHeight - windowHeight - scrollTop < SCROLLING_OFFSET) {
                     // console.log("close to bottom", true);
                     return true;
                 }
-                console.log(false);
+                // console.log(false);
                 return false;
             },
             loadInfiniteScrollResults: function () {
-                console.log("loadInfiniteScroll");
-                console.log("morePix: ", this.morePix);
+                // console.log("loadInfiniteScroll");
+                // console.log("morePix: ", this.morePix);
                 if (this.morePix == false) {
                     console.log("no more pix!");
                     //no more results
@@ -110,11 +110,9 @@
                 // console.log("PARAMS: ", params);
 
                 axios.get("/api/images.json", { params }).then((images) => {
-                    console.log("IMAGES", images.data.length);
                     if (images.data.length == 0) {
-                        console.log("GET IMAGES: ", images);
+                        //no more pictures to present!
                         this.morePix = false;
-                        console.log("GET IMAGES: ", images, this.morePix);
                     }
                     this.images = [...this.images, ...images.data];
                     this.lastImageID = images.data[images.data.length - 1].id;

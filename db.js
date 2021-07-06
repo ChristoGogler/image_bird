@@ -1,4 +1,5 @@
 const spicedPg = require("spiced-pg");
+const moment = require("moment");
 const user = process.env.user || require("./secrets.json").user;
 const pwd = process.env.pwd || require("./secrets.json").pwd;
 let postgresDb;
@@ -32,9 +33,17 @@ function getCommentsByImgId(imgId) {
     return postgresDb
         .query("SELECT * FROM comments WHERE img_id = $1", [imgId])
         .then((result) => {
+            changeDateToTimepast(result);
             console.log("(query results)", result.rows);
             return result.rows;
         });
+}
+
+function changeDateToTimepast(result) {
+    result.rows.forEach((comment) => {
+        comment.created_at = moment(comment.created_at).fromNow();
+        console.log(comment.created_at);
+    });
 }
 
 function getImages({ last_id, limit }) {
