@@ -184,11 +184,11 @@
         },
         methods: {
             mountLightbox() {
-                console.log("lightbox mounted!", this.id);
+                // console.log("lightbox mounted!", this.id);
                 axios.get("/api/images/" + this.id).then((response) => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     if (!response.data) {
-                        console.log("not an image id!");
+                        // console.log("not an image id!");
                         this.image = {};
                         this.emitClick();
                         return;
@@ -204,6 +204,10 @@
         },
         mounted: function () {
             this.mountLightbox();
+            //add listener for backdrop click closing of the lightbox
+            document
+                .querySelector(".backdrop")
+                .addEventListener("click", this.emitClick);
         },
     });
 
