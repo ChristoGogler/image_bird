@@ -138,7 +138,7 @@
             };
         },
         watch: {
-            function() {
+            id: function () {
                 console.log("lightbox mounted!", this.id);
                 axios.get("/api/images/" + this.id).then((response) => {
                     // console.log("response.data", response.data);
