@@ -8,10 +8,10 @@ const fs = require("fs");
 //     secrets = require("./secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
 // }
 let s3;
-if (process.env.accessKeyId) {
+if (process.env.accessKeyID) {
     // console.log("(s3.js) secrets: ", secrets);
     s3 = new aws.S3({
-        accessKeyId: process.env.accessKeyId,
+        accessKeyId: process.env.accessKeyID,
         secretAccessKey: process.env.secretAccessKey,
     });
 } else {
