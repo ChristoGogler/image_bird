@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -19,7 +20,7 @@
                     src="./img/logo.png"
                     alt="LOGO - The Image B🪶rd"
             /></a>
-            <section id="uploadForm">
+            <section id="uploadSection">
                 <form
                     id="uploadForm"
                     enctype="multipart/form-data"
@@ -39,7 +40,7 @@
                         id="description"
                         type="text"
                         name="description"
-                        placeholder="description"
+                        placeholder="bird joke"
                         v-model="description"
                     />
                     <input
@@ -47,7 +48,7 @@
                         id="username"
                         type="text"
                         name="username"
-                        placeholder="username"
+                        placeholder="your name"
                         v-model="username"
                     />
                     <label class="file-upload" for="picture">
@@ -148,7 +149,7 @@
                 <form id="addCommentForm"
                     @submit.prevent="submitComment">
                     <input type="text" v-model="username" placeholder="name">
-                    <textarea v-model="comment" placeholder="Leave a comment..." rows="1"></textarea>
+                    <input v-model="comment" placeholder="Leave a comment..." rows="1"></textarea>
                     <button
                         class="button postButton"
                         type="submit"

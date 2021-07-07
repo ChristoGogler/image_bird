@@ -28,14 +28,17 @@ button {
 }
 /* end general setup */
 
+#uploadSection {
+    width: 100vw;
+    padding: 20px 0;
+    background-color: #c4e7ea;
+}
 /* uploadForm */
 #uploadForm {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 10px;
-    background-color: #c4e7ea;
 }
 .textfield {
     padding: 5px 10px;
@@ -233,9 +236,9 @@ q {
     display: flex;
     align-items: center;
     align-content: center;
+    justify-content: space-between;
 }
 #addCommentForm input {
-    max-width: 100px;
     text-align: start;
 }
 #addCommentForm textarea {
@@ -311,6 +314,9 @@ footer {
     .photoframe {
         width: 45vw;
     }
+    #uploadSection {
+        padding: 10px 0;
+    }
     .closeButton {
         right: 40px;
     }
@@ -341,6 +347,34 @@ footer {
 
     .photoframe {
         width: 95vw;
+    }
+    #uploadSection {
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+    }
+    #uploadForm {
+        flex-wrap: wrap;
+        width: 95%;
+    }
+    .textfield {
+        max-width: 20vw;
+    }
+    .file-upload span {
+        font-size: 0.5rem;
+    }
+    .submitButton {
+        width: 100%;
+        aspect-ratio: auto;
+        border-radius: 0;
+        margin: 10px;
+        padding: 0;
+    }
+    ::placeholder {
+        font-size: 0.5rem;
+    }
+    footer p {
+        font-size: 0.7rem;
     }
 }
 /* end media queries */
