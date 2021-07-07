@@ -360,6 +360,9 @@ footer {
     .textfield {
         max-width: 20vw;
     }
+    .file-upload {
+        min-width: auto;
+    }
     .file-upload span {
         font-size: 0.5rem;
     }
