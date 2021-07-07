@@ -190,6 +190,7 @@ input[type="file"] {
 
 /* comments */
 .commentSlider {
+    width: 400px;
     height: 100vh;
     padding-top: 80px;
     flex: min-content;
@@ -355,10 +356,9 @@ footer {
     }
     #uploadForm {
         flex-wrap: wrap;
-        width: 95%;
     }
     .textfield {
-        max-width: 20vw;
+        max-width: 22vw;
     }
     .file-upload {
         min-width: auto;
