@@ -13,9 +13,8 @@ Vue.component("comments", {
     },
     methods: {
         submitComment: function () {
-            // console.log("submitComment!", this.image_id);
             axios
-                .post(`/api/images/${this.image_id}/comments`, {
+                .post(`/api/images/${this.image_id}/savecomment`, {
                     imageId: this.image_id,
                     username: this.username,
                     comment: this.comment,
@@ -23,7 +22,6 @@ Vue.component("comments", {
                 .then((response) => {
                     this.latestComment = response.data;
                     this.comments.push(this.latestComment);
-                    // console.log("latestComment:", this.latestComment);
                     this.comment = "";
                 })
                 .catch((error) => {
@@ -32,10 +30,8 @@ Vue.component("comments", {
         },
     },
     mounted: function () {
-        // console.log("comments mounted!", this.image_id);
         axios.get(`/api/images/${this.image_id}/comments`).then((response) => {
             this.comments = response.data;
-            // console.log("comments:", response.data);
         });
     },
 });
