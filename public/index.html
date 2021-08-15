@@ -74,6 +74,7 @@
             <section id="board" class="board">
                 <single-picture
                     v-for="image in images"
+                    v-bind:key="image.id"
                     v-bind:id="image.id"
                     v-bind:url="image.url"
                     v-bind:title="image.title"
@@ -99,14 +100,19 @@
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="js/script.js"></script>
-        <!-- single-picture component -->
+        <script src="js/singlepic.js"></script>
+        <script src="js/lightbox.js"></script>
+        <script src="js/comments.js"></script>
 
+        <!-- single-picture component -->
         <script id="singlePicture" type="text/x-template">
             <a :href="'#' + id"><div class="photoframe" >
                 <img class="thumbnail" v-bind:src="url" v-bind:alt="title" />
                 <p>{{title}}</p>
             </div></a>
         </script>
+
+        <!-- lightBox component -->
         <script id="lightBox" type="text/x-template">
             <div class="backdrop">
                 <div class="backdropContent" >
@@ -123,6 +129,8 @@
                 </div>
             </div>
         </script>
+
+        <!-- comments component -->
         <script id="comments" type="text/x-template">
             <section class="commentSlider" v-on:click.stop>
                 <section v-if="comments.length > 0">
