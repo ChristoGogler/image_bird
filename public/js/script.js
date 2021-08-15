@@ -50,7 +50,7 @@
                 formData.append("username", this.username);
                 formData.append("picture", this.picture);
                 axios
-                    .post("/api/upload", formData)
+                    .post("/api/images/uploadnewimage", formData)
                     .then((latestImage) => {
                         this.images.unshift(latestImage.data[0]);
                         this.title = "";
@@ -83,7 +83,7 @@
                     last_id: this.lastImageID,
                     limit: IMAGES_TO_SHOW,
                 };
-                axios.get("/api/images.json", { params }).then((images) => {
+                axios.get("/api/images/all", { params }).then((images) => {
                     if (images.data.length == 0) {
                         //no more pictures to present!
                         this.morePix = false;
@@ -100,7 +100,7 @@
                 limit: IMAGES_TO_SHOW,
             };
             axios
-                .get("/api/images.json", { params })
+                .get("/api/images/all", { params })
                 .then((images) => {
                     this.images = images.data;
                     this.lastImageID = images.data[images.data.length - 1].id;
